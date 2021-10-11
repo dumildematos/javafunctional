@@ -2,6 +2,8 @@ package imperative;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static imperative.Main.Gender.FEMALE;
 import static imperative.Main.Gender.MALE;
@@ -17,7 +19,8 @@ public class Main {
             new Person("Alice", FEMALE)
         );
 
-        // Imperative aproach for return items in list that has some similarity
+        System.out.println(" // Imperative Approach");
+        // Imperative approach for return items in list that has some similarity
 
         List<Person> females = new ArrayList<>();
 
@@ -31,6 +34,21 @@ public class Main {
             System.out.println(female);
         }
 
+        System.out.println(" // Declarative Approach");
+
+        // Declarative Approach
+
+        Predicate<Person> personPredicate = person -> FEMALE.equals(person.gender);
+
+        people.stream()
+                .filter(personPredicate)
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
+        System.out.println();
+        List<Person> femalesFiltered = people.stream()
+                .filter(personPredicate)
+                .collect(Collectors.toList());
+        femalesFiltered.forEach(System.out::println);
 
     }
 
