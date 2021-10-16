@@ -4,6 +4,7 @@ package streams;
 import imperative.Main;
 
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static streams._Stream.Gender.FEMALE;
@@ -21,9 +22,14 @@ public class _Stream {
                 new Person("Alice", FEMALE)
         );
 
-        people.stream().map(person -> person.name)
+        /* people.stream().map(person -> person.name)
                 .mapToInt(String::length)
-                .forEach(System.out::println);
+                .forEach(System.out::println); */
+
+        Predicate<Person> personPredicate = person -> FEMALE.equals(person.gender);
+        boolean containsOnlyFemales = people.stream()
+                                            .anyMatch(personPredicate);
+        System.out.println(containsOnlyFemales);
 
     }
 
